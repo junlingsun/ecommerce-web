@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.junling.online_mall</groupId>
+	<artifactId>online_mall</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>online_mall</name>
+	<description>aggregate services</description>
+	<packaging>pom</packaging>
+	<modules>
+		<module>online_mall_coupon</module>
+		<module>online_mall_member</module>
+		<module>online_mall_order</module>
+		<module>online_mall_product</module>
+		<module>online_mall_ware</module>
+	</modules>
+
+
+</project>
