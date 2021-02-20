@@ -17,6 +17,8 @@
 		<module>online_mall_ware</module>
 		<module>renren-fast</module>
 		<module>renren-generator</module>
+		<module>online_mall_common</module>
+		<module>online_mall_common</module>
 	</modules>
 
 
