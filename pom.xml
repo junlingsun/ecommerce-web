@@ -19,6 +19,7 @@
 		<module>renren-generator</module>
 		<module>online_mall_common</module>
 		<module>online_mall_common</module>
+		<module>online_mall_gateway</module>
 	</modules>
 
 

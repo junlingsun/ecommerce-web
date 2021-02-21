@@ -1,4 +1,4 @@
-package com.junling.online_mall.product;
+package com.junling.online_mall.gateway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -6,10 +6,10 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-public class OnlineMallProductApplication {
+public class OnlineMallGatewayApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(OnlineMallProductApplication.class, args);
+		SpringApplication.run(OnlineMallGatewayApplication.class, args);
 	}
 
 }
