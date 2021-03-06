@@ -1,5 +1,6 @@
 package com.junling.online_mall.product.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -15,6 +16,8 @@ import com.junling.online_mall.product.service.BrandService;
 
 @Service("brandService")
 public class BrandServiceImpl extends ServiceImpl<BrandDao, BrandEntity> implements BrandService {
+    @Autowired
+    private BrandDao brandDao;
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
@@ -25,5 +28,7 @@ public class BrandServiceImpl extends ServiceImpl<BrandDao, BrandEntity> impleme
 
         return new PageUtils(page);
     }
+
+
 
 }

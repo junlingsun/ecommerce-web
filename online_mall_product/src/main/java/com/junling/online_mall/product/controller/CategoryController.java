@@ -1,9 +1,13 @@
 package com.junling.online_mall.product.controller;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,6 +35,7 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
+
     /**
      * 列表
      */
@@ -41,6 +46,17 @@ public class CategoryController {
 
         return R.ok().put("page", page);
     }
+
+    /**
+     * tree list
+     */
+    @RequestMapping("/treeList")
+    public R treeList() {
+//        System.out.println("entering.......");
+        return R.ok().put("data", categoryService.treeList());
+    }
+
+
 
 
     /**

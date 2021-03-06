@@ -1,6 +1,7 @@
 package com.junling.online_mall.product.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.io.Serializable;
@@ -8,7 +9,6 @@ import java.util.Date;
 import lombok.Data;
 
 /**
- * Ʒ?
  * 
  * @author Junling
  * @email junlingsun1983@gmail.com
@@ -20,32 +20,33 @@ public class BrandEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Ʒ??id
+	 * brand Id
 	 */
 	@TableId
 	private Long brandId;
 	/**
-	 * Ʒ???
+	 *name
 	 */
 	private String name;
 	/**
-	 * Ʒ??logo??ַ
+	 * logo address
 	 */
 	private String logo;
 	/**
-	 * ???
+	 * description
 	 */
 	private String descript;
 	/**
-	 * ??ʾ״̬[0-????ʾ??1-??ʾ]
+	 * status: 0->show, 1-hidden
 	 */
+	@TableLogic
 	private Integer showStatus;
 	/**
-	 * ????????ĸ
+	 * First Letter
 	 */
 	private String firstLetter;
 	/**
-	 * ???
+	 * sort
 	 */
 	private Integer sort;
 

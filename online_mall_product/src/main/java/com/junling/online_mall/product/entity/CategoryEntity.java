@@ -1,5 +1,6 @@
 package com.junling.online_mall.product.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
@@ -62,6 +63,9 @@ public class CategoryEntity implements Serializable {
 	/**
 	 * 子分类
 	 */
-	private List<CategoryEntity> list;
+
+	@TableField(exist = false)
+	private List<CategoryEntity> children;
 
 }
+

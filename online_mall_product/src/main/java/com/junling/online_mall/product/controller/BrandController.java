@@ -71,7 +71,9 @@ public class BrandController {
     @RequestMapping("/update")
     @RequiresPermissions("product:brand:update")
     public R update(@RequestBody BrandEntity brand){
+
 		brandService.updateById(brand);
+
 
         return R.ok();
     }
@@ -82,8 +84,10 @@ public class BrandController {
     @RequestMapping("/delete")
     @RequiresPermissions("product:brand:delete")
     public R delete(@RequestBody Long[] brandIds){
-		brandService.removeByIds(Arrays.asList(brandIds));
-
+        for (Long id: brandIds) {
+            brandService.removeById(id);
+        }
+//		brandService.removeByIds(Arrays.asList(brandIds));
         return R.ok();
     }
 

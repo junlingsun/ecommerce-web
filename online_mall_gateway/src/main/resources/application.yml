@@ -5,15 +5,50 @@ spring:
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848
-      gateway:
-        routes:
-          - id: test
-            uri: https://www.qq.com
-            predicates:
-              - Query=url, qq
+    gateway:
+      routes:
+        - id: product_route
+          uri: lb://product
+          predicates:
+            - Path=/api/product/**
+          discovery:
+            locator:
+              enabled: true
+              lower-case-service-id: true
+          filters:
+            - RewritePath=/api/(?<segment>.*),/$\{segment}
+
+        - id: admin_route
+          uri: lb://admin
+          predicates:
+            - Path=/api/**
+          discovery:
+            locator:
+              enabled: true
+              lower-case-service-id: true
+          filters:
+            - RewritePath=/api/(?<segment>.*),/renren-fast/$\{segment}
+
+
+#      globalcors:
+#        cors-configurations:
+#          '[/**]':
+#            allow-credentials: true
+#            allowedOrigins: "*"
+#            allowedMethods: "*"
+#            allowHeaders: "*"
 
 
 server:
   port: 88
+
+
+#logic delete
+mybatis-plus:
+  global-config:
+    db-config:
+      logic-delete-field: flag  # 全局逻辑删除的实体字段名(since 3.3.0,配置后可以忽略不配置步骤2)
+      logic-delete-value: 1 # 逻辑已删除值(默认为 1)
+      logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
 
 
