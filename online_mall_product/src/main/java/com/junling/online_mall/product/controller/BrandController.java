@@ -1,10 +1,17 @@
 package com.junling.online_mall.product.controller;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import com.junling.common.valid.AddGroup;
+import com.junling.common.valid.UpdateGroup;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +23,7 @@ import com.junling.online_mall.product.service.BrandService;
 import com.junling.common.utils.PageUtils;
 import com.junling.common.utils.R;
 
+import javax.validation.Valid;
 
 
 /**
@@ -59,9 +67,10 @@ public class BrandController {
      */
     @RequestMapping("/save")
     @RequiresPermissions("product:brand:save")
-    public R save(@RequestBody BrandEntity brand){
-		brandService.save(brand);
+    public R save(@Validated({AddGroup.class}) @RequestBody BrandEntity brand){
 
+
+        brandService.save(brand);
         return R.ok();
     }
 
@@ -70,7 +79,7 @@ public class BrandController {
      */
     @RequestMapping("/update")
     @RequiresPermissions("product:brand:update")
-    public R update(@RequestBody BrandEntity brand){
+    public R update(@Validated({UpdateGroup.class}) @RequestBody BrandEntity brand){
 
 		brandService.updateById(brand);
 

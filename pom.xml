@@ -20,6 +20,7 @@
 		<module>online_mall_common</module>
 		<module>online_mall_common</module>
 		<module>online_mall_gateway</module>
+		<module>online_mall_third_party</module>
 	</modules>
 
 

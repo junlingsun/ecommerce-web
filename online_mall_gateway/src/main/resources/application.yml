@@ -7,10 +7,23 @@ spring:
         server-addr: 127.0.0.1:8848
     gateway:
       routes:
+        #routing to product
         - id: product_route
           uri: lb://product
           predicates:
             - Path=/api/product/**
+          discovery:
+            locator:
+              enabled: true
+              lower-case-service-id: true
+          filters:
+            - RewritePath=/api/(?<segment>.*),/$\{segment}
+
+        #routing to third-party
+        - id: third-party_route
+          uri: lb://thirdParty
+          predicates:
+            - Path=/api/thirdparty/**
           discovery:
             locator:
               enabled: true
