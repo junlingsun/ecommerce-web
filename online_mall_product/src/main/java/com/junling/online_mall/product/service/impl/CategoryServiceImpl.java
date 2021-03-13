@@ -1,6 +1,7 @@
 package com.junling.online_mall.product.service.impl;
 
 import com.junling.common.utils.R;
+import com.junling.online_mall.product.service.CategoryBrandRelationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,7 @@ import com.junling.common.utils.Query;
 import com.junling.online_mall.product.dao.CategoryDao;
 import com.junling.online_mall.product.entity.CategoryEntity;
 import com.junling.online_mall.product.service.CategoryService;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Service("categoryService")
@@ -22,6 +24,9 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
 
     @Autowired
     private CategoryDao categoryDao;
+
+    @Autowired
+    private CategoryBrandRelationService categoryBrandRelationService;
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
@@ -71,10 +76,44 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         Collections.sort(childrenEntities, new Comparator<CategoryEntity>() {
             @Override
             public int compare(CategoryEntity o1, CategoryEntity o2) {
-                return o1.getSort()-o2.getSort();
+                int sort1 = o1.getSort()==null?0:o1.getSort();
+                int sort2 = o2.getSort()==null?0:o2.getSort();
+                return sort1-sort2;
             }
         });
         rootEntity.setChildren(childrenEntities);
+
+    }
+
+    @Override
+    public Long[] getPath(Long catId) {
+        List<Long> list = new ArrayList<>();
+        CategoryEntity categoryEntity = categoryDao.selectById(catId);
+        list.add(categoryEntity.getCatId());
+
+        while (categoryEntity.getParentCid() != 0) {
+            Long parentCid = categoryEntity.getParentCid();
+            list.add(parentCid);
+            categoryEntity = categoryDao.selectById(parentCid);
+        }
+
+
+        Long[] path = new Long[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+            path[i] = list.get(list.size()-i-1);
+        }
+
+//        for (long l: path) {
+//            System.out.print( l + " ");
+//        }
+        return path;
+    }
+
+    @Override
+    @Transactional
+    public void updateCascade(CategoryEntity category) {
+        this.updateById(category);
+        categoryBrandRelationService.updateCategory(category);
 
     }
 }

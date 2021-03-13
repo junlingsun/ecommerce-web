@@ -3,6 +3,7 @@ package com.junling.online_mall.product.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.junling.common.utils.PageUtils;
 import com.junling.online_mall.product.entity.AttrEntity;
+import com.junling.online_mall.product.vo.AttrResponseVo;
 
 import java.util.Map;
 
@@ -16,5 +17,12 @@ import java.util.Map;
 public interface AttrService extends IService<AttrEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+
+    PageUtils queryPageAttr(Map<String, Object> params, int attrType, Long catId);
+
+    AttrResponseVo getAttrVo(Long attrId);
+
+    PageUtils queryNoAttr(Map<String, Object> params, Long attrGroupId);
 }
 

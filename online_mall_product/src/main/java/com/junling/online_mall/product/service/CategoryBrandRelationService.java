@@ -3,6 +3,7 @@ package com.junling.online_mall.product.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.junling.common.utils.PageUtils;
 import com.junling.online_mall.product.entity.CategoryBrandRelationEntity;
+import com.junling.online_mall.product.entity.CategoryEntity;
 
 import java.util.Map;
 
@@ -16,5 +17,11 @@ import java.util.Map;
 public interface CategoryBrandRelationService extends IService<CategoryBrandRelationEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+    void saveDetail(CategoryBrandRelationEntity categoryBrandRelation);
+
+    void updateBrand(Long brandId, String brandName);
+
+    void updateCategory(CategoryEntity category);
 }
 

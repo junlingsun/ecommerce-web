@@ -1,6 +1,11 @@
 package com.junling.online_mall.product.service.impl;
 
+import com.junling.online_mall.product.entity.AttrEntity;
+import com.junling.online_mall.product.vo.AttrGroupRelationVo;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+
+import java.util.Arrays;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -26,4 +31,12 @@ public class AttrAttrgroupRelationServiceImpl extends ServiceImpl<AttrAttrgroupR
         return new PageUtils(page);
     }
 
+    @Override
+    public void saveRelation(AttrGroupRelationVo[] relationVos) {
+        for (AttrGroupRelationVo relationVo: relationVos) {
+            AttrAttrgroupRelationEntity relationEntity = new AttrAttrgroupRelationEntity();
+            BeanUtils.copyProperties(relationVo, relationEntity);
+            this.save(relationEntity);
+        }
+    }
 }

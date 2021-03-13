@@ -1,5 +1,6 @@
 package com.junling.online_mall.product.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -31,7 +32,7 @@ public class BrandEntity implements Serializable {
 	 */
 	@NotNull (message = "id must not be null when update the item", groups = {UpdateGroup.class})
 	@Null (message = "id must be null when adding new item", groups = {AddGroup.class})
-	@TableId
+	@TableId (type = IdType.AUTO)
 	private Long brandId;
 	/**
 	 *name

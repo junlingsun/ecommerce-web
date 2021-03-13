@@ -1,5 +1,7 @@
 package com.junling.online_mall.product.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
@@ -22,7 +24,7 @@ public class AttrGroupEntity implements Serializable {
 	/**
 	 * ????id
 	 */
-	@TableId
+	@TableId (type = IdType.AUTO)
 	private Long attrGroupId;
 	/**
 	 * ???
@@ -44,5 +46,9 @@ public class AttrGroupEntity implements Serializable {
 	 * ????????id
 	 */
 	private Long catelogId;
+
+	@TableField(exist = false)
+	private Long[] catelogIds;
+
 
 }

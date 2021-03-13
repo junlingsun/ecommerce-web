@@ -3,6 +3,7 @@ package com.junling.online_mall.product.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.junling.common.utils.PageUtils;
 import com.junling.online_mall.product.entity.AttrAttrgroupRelationEntity;
+import com.junling.online_mall.product.vo.AttrGroupRelationVo;
 
 import java.util.Map;
 
@@ -16,5 +17,7 @@ import java.util.Map;
 public interface AttrAttrgroupRelationService extends IService<AttrAttrgroupRelationEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+    void saveRelation(AttrGroupRelationVo[] relationVos);
 }
 
