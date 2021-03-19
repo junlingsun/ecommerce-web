@@ -19,6 +19,18 @@ spring:
           filters:
             - RewritePath=/api/(?<segment>.*),/$\{segment}
 
+        #routing to member
+        - id: member_route
+          uri: lb://member
+          predicates:
+            - Path=/api/member/**
+          discovery:
+            locator:
+              enabled: true
+              lower-case-service-id: true
+          filters:
+            - RewritePath=/api/(?<segment>.*),/$\{segment}
+
         #routing to third-party
         - id: third-party_route
           uri: lb://thirdParty

@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.junling.online_mall.product.entity.CategoryEntity;
+import com.junling.online_mall.product.vo.BrandVo;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -44,9 +45,20 @@ public class CategoryBrandRelationController {
         return R.ok().put("data", entities);
     }
 
+    /**
+     * 相关品牌列表
+     */
+    @GetMapping("/brands/list")
+    public R brandList(@RequestParam("catId") Long catId){
+        List<BrandVo> brandVos = categoryBrandRelationService.getBrands(catId);
+        System.out.println(brandVos);
+        return R.ok().put("data", brandVos);
+    }
+
 
     /**
      * 信息
+     *
      */
     @RequestMapping("/info/{id}")
     @RequiresPermissions("product:categorybrandrelation:info")

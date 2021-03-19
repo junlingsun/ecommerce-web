@@ -4,7 +4,10 @@ import com.junling.online_mall.product.entity.AttrAttrgroupRelationEntity;
 import com.junling.online_mall.product.entity.AttrEntity;
 import com.junling.online_mall.product.service.AttrAttrgroupRelationService;
 import com.junling.online_mall.product.service.AttrService;
+import com.junling.online_mall.product.vo.AttrGroupVo;
+import com.junling.online_mall.product.vo.AttrVo;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +23,6 @@ import com.junling.common.utils.Query;
 import com.junling.online_mall.product.dao.AttrGroupDao;
 import com.junling.online_mall.product.entity.AttrGroupEntity;
 import com.junling.online_mall.product.service.AttrGroupService;
-import org.w3c.dom.Attr;
 
 
 @Service("attrGroupService")
@@ -65,5 +67,29 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
         return new PageUtils(page);
     }
 
+    @Override
+    public List<AttrGroupVo> getAttrGroupVos(Long catId) {
+        //query all attr_group_entities having the passing catId
+        List<AttrGroupVo> attrGroupVos = new ArrayList<>();
+        List<AttrGroupEntity> attrGroupEntities = this.list(new QueryWrapper<AttrGroupEntity>().eq("catelog_id", catId));
+        for (AttrGroupEntity attrGroupEntity: attrGroupEntities) {
+            AttrGroupVo attrGroupVo = new AttrGroupVo();
+            BeanUtils.copyProperties(attrGroupEntity, attrGroupVo);
+            Long attrGroupId = attrGroupEntity.getAttrGroupId();
 
+            List<AttrVo> attrVos = new ArrayList<>();
+            List<AttrAttrgroupRelationEntity> relationEntities = relationService.list(new QueryWrapper<AttrAttrgroupRelationEntity>().eq("attr_group_id", attrGroupId));
+            for (AttrAttrgroupRelationEntity relationEntity: relationEntities) {
+                Long attrId = relationEntity.getAttrId();
+                AttrEntity attrEntity = attrService.getById(attrId);
+                AttrVo attrVo = new AttrVo();
+                BeanUtils.copyProperties(attrEntity, attrVo);
+                attrVos.add(attrVo);
+            }
+
+            attrGroupVo.setAttrs(attrVos);
+            attrGroupVos.add(attrGroupVo);
+        }
+        return attrGroupVos;
+    }
 }

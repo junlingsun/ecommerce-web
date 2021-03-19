@@ -4,10 +4,17 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.junling.online_mall.product.dao.BrandDao;
 import com.junling.online_mall.product.dao.CategoryDao;
 import com.junling.online_mall.product.entity.CategoryEntity;
+import com.junling.online_mall.product.vo.BrandVo;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -62,5 +69,18 @@ public class CategoryBrandRelationServiceImpl extends ServiceImpl<CategoryBrandR
     @Override
     public void updateCategory(CategoryEntity category) {
         this.baseMapper.updateCategory(category.getCatId(), category.getName());
+    }
+
+    @Override
+    public List<BrandVo> getBrands(Long catId) {
+        List<CategoryBrandRelationEntity> relationEntities = this.list(new QueryWrapper<CategoryBrandRelationEntity>().eq("catelog_id", catId));
+        List<BrandVo> brandVos = relationEntities.stream().map(item->{
+            BrandVo brandVo = new BrandVo();
+            BeanUtils.copyProperties(item, brandVo);
+            return brandVo;
+        }).collect(Collectors.toList());
+
+
+        return brandVos;
     }
 }

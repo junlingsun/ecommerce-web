@@ -12,6 +12,7 @@ import com.junling.online_mall.product.service.AttrAttrgroupRelationService;
 import com.junling.online_mall.product.service.AttrService;
 import com.junling.online_mall.product.service.CategoryService;
 import com.junling.online_mall.product.vo.AttrGroupRelationVo;
+import com.junling.online_mall.product.vo.AttrGroupVo;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -107,6 +108,12 @@ public class AttrGroupController {
         relationService.saveRelation(relationVos);
 
         return R.ok();
+    }
+
+    @GetMapping("/{catId}/withattr")
+    public R getAttr(@PathVariable("catId") Long catId){
+        List<AttrGroupVo> list = attrGroupService.getAttrGroupVos(catId);
+        return R.ok().put("data", list);
     }
 
 

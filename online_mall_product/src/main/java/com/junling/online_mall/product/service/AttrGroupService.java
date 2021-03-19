@@ -3,7 +3,9 @@ package com.junling.online_mall.product.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.junling.common.utils.PageUtils;
 import com.junling.online_mall.product.entity.AttrGroupEntity;
+import com.junling.online_mall.product.vo.AttrGroupVo;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -20,5 +22,6 @@ public interface AttrGroupService extends IService<AttrGroupEntity> {
     PageUtils queryPage(Map<String, Object> params, Long catelogId);
 
 
+    List<AttrGroupVo> getAttrGroupVos(Long catId);
 }
 
